@@ -9,18 +9,25 @@ public class menuController : MonoBehaviour
     [SerializeField] public GameObject gamePanel;
     [SerializeField] public GameObject pausePanel;
 
+    private int mainmenuIndex = 0;
+    private int level1Index = 1;
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == mainmenuIndex)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex != 0)
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex != mainmenuIndex)
         {
             gamePanel.SetActive(false);
             pausePanel.SetActive(true);
             PauseGame();
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            Cursor.visible = true;
         }
 
     }
@@ -36,7 +43,7 @@ public class menuController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(level1Index);
     }
 
     public void PauseGame()
@@ -46,14 +53,19 @@ public class menuController : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void UnpauseGame()
+    public void ResumeGame()
     {
         Time.timeScale = 1;
     }
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene(0);
-        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 1;
+        SceneManager.LoadScene(mainmenuIndex);
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
