@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class gameController : MonoBehaviour
 {
@@ -25,12 +26,12 @@ public class gameController : MonoBehaviour
     {
         if (round == 1)
         {
-            StartCoroutine("MoveControlsPopup");
+            //StartCoroutine("MoveControlsPopup");
         }
 
-        roundText.text = "" + round;
-        healthText.text = "" + health;
-        coinsText.text = "" + coins;
+        roundText.text = "Round  " + round.ToString();
+        healthText.text = health.ToString();
+        coinsText.text = coins.ToString();
     }
 
     private void Update()
@@ -41,34 +42,37 @@ public class gameController : MonoBehaviour
     public void updateHealth(int addHealth)
     {
         health += addHealth;
-        healthText.text = "" + health;
-        if (health <= 0)
+        healthText.text = health.ToString();
+
+        switch (health)
         {
-            GameOver();
-        }
-        if (health < 25)
-        {
-            healthImage.sprite = healthSprites[1];
-        }
-        else if (health < 40)
-        {
-            healthImage.sprite = healthSprites[2];
-        }
-        else if (health < 56)
-        {
-            healthImage.sprite = healthSprites[3];
-        }
-        else if (health < 76)
-        {
-            healthImage.sprite = healthSprites[4];
-        }
-        else if (health < 100)
-        {
-            healthImage.sprite = healthSprites[5];
-        }
-        else if (health == 100)
-        {
-            healthImage.sprite = healthSprites[6];
+            case int n when (n <= 0):
+                GameOver();
+                break;
+
+            case int n when (n < 25):
+                healthImage.sprite = healthSprites[1];
+                break;
+
+            case int n when (n < 40):
+                healthImage.sprite = healthSprites[2];
+                break;
+
+            case int n when (n < 56):
+                healthImage.sprite = healthSprites[3];
+                break;
+
+            case int n when (n < 76):
+                healthImage.sprite = healthSprites[4];
+                break;
+
+            case int n when (n < 100):
+                healthImage.sprite = healthSprites[5];
+                break;
+
+            case int n when (n >= 100):
+                healthImage.sprite = healthSprites[6];
+                break;
         }
 
     }
