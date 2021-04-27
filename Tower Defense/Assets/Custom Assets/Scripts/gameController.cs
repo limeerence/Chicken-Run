@@ -50,7 +50,7 @@ public class gameController : MonoBehaviour
                 GameOver();
                 break;
 
-            case int n when (n < 25):
+            case int n when (n < 26):
                 healthImage.sprite = healthSprites[1];
                 break;
 
