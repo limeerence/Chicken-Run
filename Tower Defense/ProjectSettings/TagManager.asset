@@ -8,6 +8,9 @@ TagManager:
   - Ice Tower
   - Fire Tower
   - Magic Tower
+  - Tower Select
+  - Platform
+  - Projectile
   layers:
   - Default
   - TransparentFX

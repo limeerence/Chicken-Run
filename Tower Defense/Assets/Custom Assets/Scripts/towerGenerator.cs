@@ -1,20 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class towerGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] towerPrefabs;
+    [SerializeField] private GameObject towerSelectionPanel;
+    [SerializeField] private GameObject towerUpgradePanel;
 
+    public GameObject myTower;
+    public int towerSelected = 0;
     private bool hasTower = false;
+    private bool maxedTower = false;
+    public int upgradeCost;
+    public int currLevel;
 
-    public void addTower()
+    private void Awake()
+    {
+        towerSelectionPanel = GameObject.Find("Tower Select Panel");
+        
+        towerUpgradePanel = GameObject.Find("Tower Upgrade Panel");   
+    }
+
+    private void Start()
+    {
+        towerSelectionPanel.SetActive(false);
+        towerUpgradePanel.SetActive(false);
+    }
+
+    public void editTower()
     {
         if (!hasTower)
         {
-            int s = Random.Range(0, towerPrefabs.Length);
-            Instantiate(towerPrefabs[s], transform.position, Quaternion.identity);
-            hasTower = true;
+            towerSelectionPanel.GetComponent<towerSelector>().towerLocation = gameObject;
+            towerSelectionPanel.SetActive(true); 
+        } else if (!maxedTower)
+        {
+            towerUpgradePanel.GetComponent<towerUpgrader>().towerLocation = gameObject;
+            towerUpgradePanel.GetComponent<towerUpgrader>().activateMenu();
         }
+    }
+
+    public void addTower()
+    {
+        towerSelectionPanel.SetActive(false);
+        myTower = Instantiate(towerPrefabs[towerSelected], transform.position, Quaternion.identity);
+        upgradeCost = myTower.GetComponent<Tower>().upgradeCost[1];
+        currLevel = myTower.GetComponent<Tower>().upgradeLevel;
+        hasTower = true;
+    }
+
+    public void upgradeTower()
+    {
+        towerUpgradePanel.SetActive(false);
+        currLevel = myTower.GetComponent<Tower>().upgradeLevel;
+        int nextLevel = currLevel + 1;
+        if (nextLevel < 3)
+        {
+            myTower.GetComponent<Tower>().towerUpgrades[currLevel].SetActive(false);
+            myTower.GetComponent<Tower>().towerUpgrades[nextLevel].SetActive(true);
+            myTower.GetComponent<Tower>().upgradeLevel = nextLevel;
+            currLevel = nextLevel;
+            upgradeCost = myTower.GetComponent<Tower>().upgradeCost[nextLevel + 1];
+            myTower.GetComponent<Tower>().towerDamage += myTower.GetComponent<Tower>().upgradeDPS;
+            myTower.GetComponent<Tower>().shootRate += myTower.GetComponent<Tower>().upgradeRate;
+        }
+        else if (nextLevel == 3)
+        {
+            myTower.GetComponent<Tower>().towerUpgrades[currLevel].SetActive(false);
+            myTower.GetComponent<Tower>().towerUpgrades[nextLevel].SetActive(true);
+            myTower.GetComponent<Tower>().upgradeLevel = nextLevel;
+            currLevel = nextLevel;
+            myTower.GetComponent<Tower>().towerDamage += myTower.GetComponent<Tower>().upgradeDPS;
+            myTower.GetComponent<Tower>().shootRate += myTower.GetComponent<Tower>().upgradeRate;
+
+            //maxed effect
+            myTower.GetComponent<Tower>().particles.SetActive(true);
+            maxedTower = true;
+        }
+
+
     }
 }

@@ -18,9 +18,12 @@ public class gameController : MonoBehaviour
     [SerializeField] public Image healthImage;
     [SerializeField] public Sprite[] healthSprites;
 
-    [SerializeField] private Image gameOverImage;
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private Image controlsImage;
     [SerializeField] private Image nextRoundImage;
+
+    [SerializeField] private Image noCoinsImage;
+    private bool coinsActive = false;
 
     private void Start()
     {
@@ -36,7 +39,7 @@ public class gameController : MonoBehaviour
 
     private void Update()
     {
-        
+        coinsText.text = coins.ToString();
     }
 
     public void updateHealth(int addHealth)
@@ -80,9 +83,8 @@ public class gameController : MonoBehaviour
     public void GameOver()
     {
         healthImage.sprite = healthSprites[0];
-        gameOverImage.gameObject.SetActive(true);
+        gameOverPanel.gameObject.SetActive(true);
         Debug.Log("GAME OVER!!");
-        Invoke("returnToMenu", 3);
     }
 
     private void returnToMenu()
@@ -96,5 +98,17 @@ public class gameController : MonoBehaviour
         controlsImage.gameObject.SetActive(true);
         yield return new WaitForSeconds(4);
         controlsImage.gameObject.SetActive(false);
+    }
+
+    public IEnumerator noCoins()
+    {
+        if (!coinsActive)
+        {
+            coinsActive = true;
+            noCoinsImage.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2);
+            noCoinsImage.gameObject.SetActive(false);
+            coinsActive = false;
+        }
     }
 }

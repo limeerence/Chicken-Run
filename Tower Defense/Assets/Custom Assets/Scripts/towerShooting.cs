@@ -8,6 +8,8 @@ public class towerShooting : MonoBehaviour
     private Tower tower;
     private GameObject target;
     private float nextShootTime = 0;
+    private GameObject bullet;
+    private float bulletSpeed = 10f;
 
     private void Start()
     {
@@ -22,10 +24,12 @@ public class towerShooting : MonoBehaviour
         {
             return;
         }
+        lockOnTarget();
 
         if (Time.time > nextShootTime)
         {
-            nextShootTime = Time.time + 1 / tower.shootRate;
+            shoot();
+            nextShootTime = Time.time + (1 / tower.shootRate);
         }
     }
 
@@ -53,5 +57,22 @@ public class towerShooting : MonoBehaviour
         {
             target = null;
         }
+    }
+
+    private void shoot()
+    {
+        //instantiate bullet
+        bullet = Instantiate(tower.projectile, tower.towerHead.transform.position, tower.towerHead.transform.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = (target.transform.position - tower.towerHead.transform.position).normalized * bulletSpeed;
+        //damage target
+        target.GetComponent<enemyController>().takeDamage(tower.towerDamage);
+
+    }
+
+    private void lockOnTarget()
+    {
+        Vector3 dir = target.transform.position - tower.towerHead.transform.position;
+        tower.towerHead.transform.rotation = Quaternion.LookRotation(dir);
+        
     }
 }

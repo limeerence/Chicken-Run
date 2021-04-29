@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(Enemy))]
 public class enemyController : MonoBehaviour
 {
     [SerializeField] private gameController controller;
@@ -10,6 +11,7 @@ public class enemyController : MonoBehaviour
 
     private GameObject prev;
     private GameObject next;
+    private bool dead = false;
 
     private void Start()
     {
@@ -20,19 +22,12 @@ public class enemyController : MonoBehaviour
         {
             controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<gameController>();
         }
-        if (!enemy)
-        {
-            enemy = gameObject.GetComponent<Enemy>();
-        }
+
+        enemy = GetComponent<Enemy>();
     }
 
     private void Update()
     {
-        if (enemy.health == 0)
-        {
-            Destroy(gameObject);
-        }
-
         if (Convert.ToInt32(prev.name) < pathGenerator.path.Count - 1)
         {
             next = pathGenerator.path[Convert.ToInt32(prev.name) + 1];
@@ -46,6 +41,20 @@ public class enemyController : MonoBehaviour
         {
             //damage player if reach end
             controller.updateHealth(-enemy.damage);
+            Destroy(gameObject);
+        }
+    }
+
+    public void takeDamage(int dmg)
+    {
+        if (!dead && enemy != null)
+        {
+            enemy.health -= dmg;
+        }
+        if (enemy.health <= 0)
+        {
+            dead = true;
+            controller.coins += enemy.coins;
             Destroy(gameObject);
         }
     }

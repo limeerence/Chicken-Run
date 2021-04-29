@@ -66,6 +66,7 @@ public class menuController : MonoBehaviour
 
     public void RetryLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

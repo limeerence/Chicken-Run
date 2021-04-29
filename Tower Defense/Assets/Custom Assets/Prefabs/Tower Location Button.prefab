@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -8552391881271930101}
         m_TargetAssemblyTypeName: towerGenerator, Assembly-CSharp
-        m_MethodName: addTower
+        m_MethodName: editTower
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -149,3 +149,5 @@ MonoBehaviour:
   - {fileID: 2891698448796839563, guid: 44c6048a5ab3c954d80cd18781553f15, type: 3}
   - {fileID: 190924048603696096, guid: ed6a571433f9df8429fa02be20e0d900, type: 3}
   - {fileID: 7609426871604363541, guid: 7c62786d7ef99364fab148f6c4c43430, type: 3}
+  towerSelectionPanel: {fileID: 0}
+  towerSelected: 0
