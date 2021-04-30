@@ -29,7 +29,7 @@ public class towerUpgrader : MonoBehaviour
             towerLocation.GetComponent<towerGenerator>().upgradeTower();
         } else
         {
-            StartCoroutine(controller.noCoins());
+            //StartCoroutine(controller.noCoins());
         }
         
     }

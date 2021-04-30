@@ -6,6 +6,7 @@ using System;
 [RequireComponent(typeof(Enemy))]
 public class enemyController : MonoBehaviour
 {
+    [SerializeField] private Animator anim;
     [SerializeField] private gameController controller;
     [SerializeField] private Enemy enemy;
 
@@ -13,8 +14,13 @@ public class enemyController : MonoBehaviour
     private GameObject next;
     private bool dead = false;
 
+    private Rigidbody rbd;
+
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        rbd = gameObject.GetComponent<Rigidbody>();
+
         prev = pathGenerator.path[0];
         transform.position = prev.transform.position;
 
@@ -28,6 +34,8 @@ public class enemyController : MonoBehaviour
 
     private void Update()
     {
+        anim.SetBool(enemy.animSpd, true);
+
         if (Convert.ToInt32(prev.name) < pathGenerator.path.Count - 1)
         {
             next = pathGenerator.path[Convert.ToInt32(prev.name) + 1];
@@ -51,7 +59,7 @@ public class enemyController : MonoBehaviour
         {
             enemy.health -= dmg;
         }
-        if (enemy.health <= 0)
+        if (enemy.health <= 0 && !dead)
         {
             dead = true;
             controller.coins += enemy.coins;

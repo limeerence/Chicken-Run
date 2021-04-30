@@ -10,7 +10,7 @@ public class pathGenerator : MonoBehaviour
     [SerializeField] private int size = 20;
     private int[,] grid;
     public static List<GameObject> path;
-    private int yVal = 1;
+    private int yVal = 0;
 
     private void Awake()
     {

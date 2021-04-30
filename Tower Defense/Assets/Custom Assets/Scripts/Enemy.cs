@@ -8,4 +8,5 @@ public class Enemy : MonoBehaviour
     public int damage = 1;
     public int coins = 1;
     public float speed = 1f;
+    public string animSpd = "Walk";
 }

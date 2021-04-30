@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeLevel: 0
   upgradeDPS: 3
-  upgradeCost: 050000000f0000001400000019000000
+  upgradeCost: 0a000000140000001e00000028000000
   towerDamage: 5
   shootRate: 0.5
   upgradeRate: 0.1

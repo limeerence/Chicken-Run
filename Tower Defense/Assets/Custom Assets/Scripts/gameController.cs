@@ -10,10 +10,15 @@ public class gameController : MonoBehaviour
     public int round = 1;
     public int health = 100;
     public int coins = 5;
+    public int wavesRemaining = 1;
+    public int thisWave = 0;
+    public int enemiesRemaining = 1;
 
     [SerializeField] private Text roundText;
     [SerializeField] private Text healthText;
     [SerializeField] private Text coinsText;
+    [SerializeField] private Text thisWaveText;
+    [SerializeField] private Text enemiesText;
 
     [SerializeField] public Image healthImage;
     [SerializeField] public Sprite[] healthSprites;
@@ -24,6 +29,8 @@ public class gameController : MonoBehaviour
 
     [SerializeField] private Image noCoinsImage;
     private bool coinsActive = false;
+    private bool isNextRound = false;
+    private GameObject[] allEnemies;
 
     private void Start()
     {
@@ -32,14 +39,38 @@ public class gameController : MonoBehaviour
             //StartCoroutine("MoveControlsPopup");
         }
 
-        roundText.text = "Round  " + round.ToString();
+        roundText.text = "Round " + round.ToString();
         healthText.text = health.ToString();
         coinsText.text = coins.ToString();
+        wavesRemaining = round;
+        thisWaveText.text = "Waves: " + thisWave.ToString() + "/" + round.ToString();
     }
 
     private void Update()
     {
+        allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        enemiesRemaining = allEnemies.Length;
+        enemiesText.text = "Enemies: " + enemiesRemaining.ToString();
         coinsText.text = coins.ToString();
+        thisWaveText.text = "Waves: " + thisWave.ToString() + "/" + round.ToString();
+        if (wavesRemaining == 0 && !isNextRound && enemiesRemaining == 0)
+        {
+            isNextRound = true;
+            StartCoroutine(nextRound());
+        }
+    }
+
+    IEnumerator nextRound()
+    {
+        Debug.Log("End round " + round);
+        round++;
+        nextRoundImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        nextRoundImage.gameObject.SetActive(false);
+        wavesRemaining = round;
+        thisWave = 0;
+        roundText.text = "Round " + round.ToString();
+        isNextRound = false;
     }
 
     public void updateHealth(int addHealth)
@@ -85,12 +116,6 @@ public class gameController : MonoBehaviour
         healthImage.sprite = healthSprites[0];
         gameOverPanel.gameObject.SetActive(true);
         Debug.Log("GAME OVER!!");
-    }
-
-    private void returnToMenu()
-    {
-        SceneManager.LoadScene(0);
-        Cursor.lockState = CursorLockMode.None;
     }
 
     IEnumerator MoveControlsPopup()

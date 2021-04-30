@@ -26,22 +26,22 @@ public class towerSelector : MonoBehaviour
             towerLocation = null;
         } else
         {
-            StartCoroutine(controller.noCoins());
+            //StartCoroutine(controller.noCoins());
         }
 
     }
 
     public void FireTower()
     {
-        if (controller.coins >= 2)
+        if (controller.coins >= 3)
         {
-            controller.coins -= 2;
+            controller.coins -= 3;
             towerLocation.GetComponent<towerGenerator>().towerSelected = 1;
             towerLocation.GetComponent<towerGenerator>().addTower();
             towerLocation = null;
         } else
         {
-            StartCoroutine(controller.noCoins());
+            //StartCoroutine(controller.noCoins());
         }
     }
 
@@ -55,7 +55,7 @@ public class towerSelector : MonoBehaviour
             towerLocation = null;
         } else
         {
-            StartCoroutine(controller.noCoins());
+            //StartCoroutine(controller.noCoins());
         }
     }
 

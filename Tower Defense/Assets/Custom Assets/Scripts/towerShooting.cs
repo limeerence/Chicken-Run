@@ -65,8 +65,10 @@ public class towerShooting : MonoBehaviour
         bullet = Instantiate(tower.projectile, tower.towerHead.transform.position, tower.towerHead.transform.rotation);
         bullet.GetComponent<Rigidbody>().velocity = (target.transform.position - tower.towerHead.transform.position).normalized * bulletSpeed;
         //damage target
-        target.GetComponent<enemyController>().takeDamage(tower.towerDamage);
-
+        if (target != null)
+        {
+            target.GetComponent<enemyController>().takeDamage(tower.towerDamage);
+        }
     }
 
     private void lockOnTarget()
