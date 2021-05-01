@@ -95,6 +95,7 @@ MonoBehaviour:
   - {fileID: 6745446919179767417}
   - {fileID: 2437057334602683022}
   - {fileID: 6781410696393284464}
+  towerType: Ice
 --- !u!114 &5512116252552317363
 MonoBehaviour:
   m_ObjectHideFlags: 0

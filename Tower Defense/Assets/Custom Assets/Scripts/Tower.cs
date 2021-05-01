@@ -15,4 +15,5 @@ public class Tower : MonoBehaviour
     public GameObject projectile;
     public GameObject towerHead;
     public GameObject[] towerUpgrades;
+    public string towerType = "None";
 }

@@ -34,9 +34,11 @@ public class towerGenerator : MonoBehaviour
         if (!hasTower)
         {
             towerSelectionPanel.GetComponent<towerSelector>().towerLocation = gameObject;
+            towerUpgradePanel.gameObject.SetActive(false);
             towerSelectionPanel.SetActive(true); 
         } else if (!maxedTower)
         {
+            towerSelectionPanel.SetActive(false);
             towerUpgradePanel.GetComponent<towerUpgrader>().towerLocation = gameObject;
             towerUpgradePanel.GetComponent<towerUpgrader>().activateMenu();
         }

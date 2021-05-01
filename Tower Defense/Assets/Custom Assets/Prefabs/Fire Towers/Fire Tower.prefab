@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 750633535424936103}
   - {fileID: 1046848142066305961}
   - {fileID: 7141696181172018193}
+  towerType: Fire
 --- !u!114 &-7076845749201337381
 MonoBehaviour:
   m_ObjectHideFlags: 0

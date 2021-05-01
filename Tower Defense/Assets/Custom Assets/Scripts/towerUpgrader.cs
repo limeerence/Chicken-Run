@@ -11,6 +11,7 @@ public class towerUpgrader : MonoBehaviour
     
     [SerializeField] private Text costText;
     [SerializeField] private Text levelText;
+    [SerializeField] private Text typeText;
     [SerializeField] private gameController controller;
 
     private void Awake()
@@ -29,7 +30,7 @@ public class towerUpgrader : MonoBehaviour
             towerLocation.GetComponent<towerGenerator>().upgradeTower();
         } else
         {
-            //StartCoroutine(controller.noCoins());
+            StartCoroutine(controller.noCoins());
         }
         
     }
@@ -41,8 +42,9 @@ public class towerUpgrader : MonoBehaviour
 
     public void activateMenu()
     {
-        //level = towerLocation.GetComponent<towerGenerator>().currLevel + 1;
-        //levelText.text = "[Lv. " + level.ToString() + "]";
+        level = towerLocation.GetComponent<towerGenerator>().myTower.GetComponent<Tower>().upgradeLevel + 1;
+        levelText.text = "[Lv. " + level + "]";
+        typeText.text = towerLocation.GetComponent<towerGenerator>().myTower.GetComponent<Tower>().towerType;
         costText.text = towerLocation.GetComponent<towerGenerator>().upgradeCost.ToString();
         gameObject.SetActive(true);
     }

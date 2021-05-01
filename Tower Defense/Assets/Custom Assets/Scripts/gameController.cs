@@ -134,6 +134,11 @@ public class gameController : MonoBehaviour
             yield return new WaitForSeconds(2);
             noCoinsImage.gameObject.SetActive(false);
             coinsActive = false;
+        } else
+        {
+            yield return new WaitForSeconds(1);
+            noCoinsImage.gameObject.SetActive(false);
+            coinsActive = false;
         }
     }
 }
