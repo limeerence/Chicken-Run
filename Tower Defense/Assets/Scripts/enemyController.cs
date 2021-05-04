@@ -41,7 +41,7 @@ public class enemyController : MonoBehaviour
             next = pathGenerator.path[Convert.ToInt32(prev.name) + 1];
             transform.position += (next.transform.position - transform.position).normalized * enemy.speed * Time.deltaTime;
             Quaternion rot = Quaternion.LookRotation((next.transform.position - transform.position).normalized);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, 1.5f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, 1.8f);
 
             if (Vector3.Distance(transform.position, next.transform.position) <= 0.01f)
                 prev = next;

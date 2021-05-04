@@ -48,6 +48,10 @@ public class towerGenerator : MonoBehaviour
     {
         towerSelectionPanel.SetActive(false);
         myTower = Instantiate(towerPrefabs[towerSelected], transform.position, Quaternion.identity);
+        if (towerSelected == 2)
+        {
+            myTower.GetComponent<AudioSource>().Play();
+        }
         upgradeCost = myTower.GetComponent<Tower>().upgradeCost[1];
         currLevel = myTower.GetComponent<Tower>().upgradeLevel;
         hasTower = true;

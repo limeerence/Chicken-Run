@@ -5,6 +5,7 @@ using UnityEngine;
 public class pathGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject waypointPrefab;
+    [SerializeField] private GameObject[] pathPrefabs;
     [SerializeField] private GameObject towerLocationPrefab;
     [SerializeField] private Canvas mapCanvas;
     [SerializeField] private int size = 20;
@@ -24,6 +25,8 @@ public class pathGenerator : MonoBehaviour
         int x = 0, z = UnityEngine.Random.Range(0, size), nextMove, prevMove = -1;
 
         path.Add(Instantiate(waypointPrefab, new Vector3(x, yVal, z), Quaternion.identity, transform));
+        int variant = Random.Range(0, 10);
+        Instantiate(pathPrefabs[variant == 1 ? 2 : variant > 7 ? 1 : 0], new Vector3(x, -0.1f, z), Quaternion.identity, transform);
         path[path.Count - 1].name = (path.Count - 1).ToString();
         grid[x, z] = 1;
         while(x < size - 1)
@@ -64,6 +67,8 @@ public class pathGenerator : MonoBehaviour
     private void fillGridWithPath(int x, int z)
     {
         path.Add(Instantiate(waypointPrefab, new Vector3(x, yVal, z), Quaternion.identity, transform));
+        int variant = Random.Range(0, 10);
+        Instantiate(pathPrefabs[variant == 1 ? 2 : variant > 7 ? 1 : 0], new Vector3(x, -0.1f, z), Quaternion.identity, transform);
         path[path.Count - 1].name = (path.Count - 1).ToString();
         grid[x, z] = 1;
     }
